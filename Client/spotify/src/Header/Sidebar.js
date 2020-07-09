@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import {slide as Menu} from 'react-burger-menu';
+import styles from './sidebar.module.css';
 
-class SideBar extends Component {
+class SideBarComponent extends Component {
     render() {
         return (
-            <Menu>
-                <a className='menu-item' href='/'>Home</a>
-                <a className='menu-item' href='/songs'>Songs</a>
-                <a className='menu-item' href='/playlist'>Playlist</a>
-
-                <a className='menu-item' href='/login'>Login</a>
-                <a className='menu-item' href='/register'>Register</a>
-            </Menu>
+            <div className={styles.sidenav}>
+                <a href="/home">Home</a>
+                <a href="/songs">Songs</a>
+                <a href="/playlist">Playlist</a>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+          </div>
         )
     }
 }
 
-export default SideBar;
+export default SideBarComponent;

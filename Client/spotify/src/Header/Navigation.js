@@ -7,7 +7,7 @@ class Header extends Component {
     return (
       <Navbar expand="lg" className={styles.navigation}>
         <Navbar.Brand href="/">
-          <span className={styles.logo}>Spotify-App</span>
+          <span className={styles.logo}>MusicFy-App</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

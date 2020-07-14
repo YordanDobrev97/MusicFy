@@ -6,7 +6,7 @@ class Header extends Component {
   render() {
     return (
       <Navbar expand="lg" className={styles.navigation}>
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="/home">
           <span className={styles.logo}>MusicFy-App</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

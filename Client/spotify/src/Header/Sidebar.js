@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink, HashRouter } from 'react-router-dom'
+import { Route, NavLink, HashRouter } from 'react-router-dom';
 import Home from '../Home';
 import Songs from '../Songs';
 import Playlist from '../Playlist';
@@ -9,10 +9,25 @@ import Register from '../Register';
 import styles from './sidebar.module.css';
 
 class SideBarComponent extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+          isHide: false
+        }
+    }
+
+    login = () => {
+      this.setState({
+          isHide: !this.state.isHide
+      })
+  }
+  
     render() {
         return (
+            //back to home logic todo...
             <HashRouter>
-                <div className={styles.sidenav}>
+                <div className={this.state.isHide ? styles.hide: styles.sidenav}>
                     <ul>
                         <li>
                             <NavLink to='/home'>Home</NavLink>
@@ -24,7 +39,7 @@ class SideBarComponent extends Component {
                             <NavLink to='/playlist'>Playlist</NavLink>
                         </li>
                         <li>
-                            <NavLink to='/login'>Login</NavLink>
+                            <NavLink to='/login' isHide={false} onClick={this.login}>Login</NavLink>
                         </li>
                         <li>
                             <NavLink to='/register'>Register</NavLink>

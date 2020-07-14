@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
-const port = 3001;
+const config = require('./config/config');
+
+require('./config/db')();
 
 app.get('/', (req, res) => {
     res.send('Hello');
 });
 
-app.listen(port, () => {
-    console.log(`Server starting on port ${port}...`);
+app.listen(config.port, () => {
+    console.log(`Server starting on port ${config.port}...`);
 });

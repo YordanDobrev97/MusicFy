@@ -1,9 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const config = require('./config/config');
 const songRoute = require('./routes/songs');
 
-app.use('/all', songRoute);
+app.use(bodyParser.json());
+
+app.use('/song', songRoute);
 
 app.get('/', (req, res) => {
     res.send('Hello');

@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const config = require('./config/config');
+const songRoute = require('./routes/songs');
 
-require('./config/db')();
+app.use('/all', songRoute);
 
 app.get('/', (req, res) => {
     res.send('Hello');
@@ -11,3 +12,5 @@ app.get('/', (req, res) => {
 app.listen(config.port, () => {
     console.log(`Server starting on port ${config.port}...`);
 });
+
+require('./config/db')();

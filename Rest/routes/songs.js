@@ -3,11 +3,12 @@ const router = express.Router();
 const Song = require('../models/song');
 
 router.post('/create', async (req, res) => {
-    const { songName, artistName, imageUrl } = req.body;
+    const { songName, artistName, imageUrl, sourceUrl } = req.body;
     const newSong = new Song({
         songName,
         artistName,
-        imageUrl
+        imageUrl,
+        sourceUrl
     });
 
    try {
@@ -19,7 +20,15 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/all', (req, res) => {
-    res.send('All songs!');
+    const all = Song.find({}, (err, songs) => {
+        const listSongs = {};
+
+        songs.forEach(song => {
+            listSongs[song._id] = song;
+        })
+
+        res.send(listSongs);
+    })
 });
 
 module.exports = router;

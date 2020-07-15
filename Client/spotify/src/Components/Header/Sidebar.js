@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Route, NavLink, HashRouter } from 'react-router-dom';
-import Home from '../Home';
-import Songs from '../Songs';
-import Playlist from '../Playlist';
-import Login from '../Login';
-import Register from '../Register';
+import Home from '../../Home';
+import Songs from '../Song/Songs';
+import Playlist from '../Playlist/Playlist';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 import styles from './sidebar.module.css';
 

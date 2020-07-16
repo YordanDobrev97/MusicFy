@@ -15,6 +15,10 @@ class Songs extends Component {
       result.push(songs[key]);
     });
 
+    result.sort((s1, s2) => {
+      return s2.likes - s1.likes
+    });
+
     return result;
   }
 

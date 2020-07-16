@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, NavLink, HashRouter } from 'react-router-dom';
-import Home from '../../Home';
+import Home from '../Home/Home';
 import Songs from '../Song/Songs';
 import Playlist from '../Playlist/Playlist';
 import Login from '../Login/Login';
@@ -25,7 +25,6 @@ class SideBarComponent extends Component {
   
     render() {
         return (
-            //back to home logic todo...
             <HashRouter>
                 <div className={this.state.isHide ? styles.hide: styles.sidenav}>
                     <ul>
@@ -33,7 +32,7 @@ class SideBarComponent extends Component {
                             <NavLink to='/home'>Home</NavLink>
                         </li>
                         <li>
-                            <NavLink to='/songs'>Songs</NavLink>
+                            <NavLink to='/songs'>Trending</NavLink>
                         </li>
                         <li>
                             <NavLink to='/playlist'>Playlist</NavLink>

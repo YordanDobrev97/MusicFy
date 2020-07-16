@@ -17,7 +17,7 @@ class SideBarComponent extends Component {
         }
     }
 
-    login = () => {
+    hideSideBar = () => {
       this.setState({
           isHide: !this.state.isHide
       })
@@ -39,10 +39,10 @@ class SideBarComponent extends Component {
                             <NavLink to='/playlist'>Playlist</NavLink>
                         </li>
                         <li>
-                            <NavLink to='/login' isHide={false} onClick={this.login}>Login</NavLink>
+                            <NavLink to='/login' isHide={false} onClick={this.hideSideBar}>Login</NavLink>
                         </li>
                         <li>
-                            <NavLink to='/register'>Register</NavLink>
+                            <NavLink to='/register' isHide={false} onClick={this.hideSideBar}>Register</NavLink>
                         </li>
                     </ul>
                 </div>

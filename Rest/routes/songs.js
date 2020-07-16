@@ -3,13 +3,13 @@ const router = express.Router();
 const Song = require('../models/song');
 
 router.post('/create', async (req, res) => {
-    const { songName, artistName, imageUrl, sourceUrl } = req.body;
+    const { songName, artistName, imageUrl, sourceUrl, likes } = req.body;
     const newSong = new Song({
         songName,
         artistName,
         imageUrl,
         sourceUrl,
-        likes: 0
+        likes
     });
 
    try {

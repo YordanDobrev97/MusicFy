@@ -8,7 +8,8 @@ router.post('/create', async (req, res) => {
         songName,
         artistName,
         imageUrl,
-        sourceUrl
+        sourceUrl,
+        likes: 0
     });
 
    try {

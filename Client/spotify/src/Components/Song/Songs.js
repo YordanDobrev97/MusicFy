@@ -1,51 +1,20 @@
 import React, { Component } from "react";
-import Async from "react-async";
-import ReactPlayer from "react-player";
-import { Button } from 'react-bootstrap'
-
 import songService from "../Services/list-song";
-import styles from './song.module.css'
+import Songs from '../Async/LoadSong';
 
-class Songs extends Component {
+class ListSong extends Component {
   async getSongs() {
-    const songs = await songService.getAll();
-
-    const result = [];
-    Object.keys(songs).map((key) => {
-      result.push(songs[key]);
-    });
-
-    result.sort((s1, s2) => {
-      return s2.likes - s1.likes
-    });
-
-    return result;
+    const songs = await songService.getMostLikes()
+    return songs;
   }
 
   render() {
     return (
       <div>
-        <Async promiseFn={this.getSongs}>
-          {({ data, err, isLoading }) => {
-            if (isLoading) return "Loading...";
-            if (err) return `Something went wrong`;
-
-            if (data)
-              return (
-                <div>
-                  {data.map((s) => (
-                    <div className={styles["player-wrapper"]}>
-                      <ReactPlayer className={styles["react-player"]} url={s.sourceUrl} width='80%' height='80%'/>
-                      <Button>❤️ {s.likes}</Button>
-                    </div>
-                  ))}
-                </div>
-              );
-          }}
-        </Async>
+        <Songs songs={this.getSongs}/>
       </div>
     );
   }
 }
 
-export default Songs;
+export default ListSong;

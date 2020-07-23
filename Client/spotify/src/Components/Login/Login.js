@@ -7,6 +7,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import SideBarComponent from '../Home/Home';
 
+const loginForm = () => {
+    console.log(this.Text)
+}
+
 function Login() {
     return (
         <div>
@@ -17,7 +21,7 @@ function Login() {
                    <br />
                    <TextField type='password' hintText='Your password' floatingLabelText='Password'/>
                     <br />
-                   <RaisedButton label='Submit' primary={true}/>
+                   <RaisedButton onClick={() => loginForm()} label='Submit' primary={true}/>
                </div>
                 <br />
                 <Button href='/home'>Back</Button>

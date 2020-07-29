@@ -1,6 +1,8 @@
 import React from 'react';
 import Async from "react-async";
 import ReactPlayer from "react-player";
+import { Container, Row } from 'react-bootstrap'
+
 import styles from '../Song/song.module.css'
 
 function Songs(props) {
@@ -14,14 +16,16 @@ function Songs(props) {
     
                 if (data)
                   return (
-                    <div>
-                      {data.map((s) => (
-                        <div className={styles["player-wrapper"]}>
-                          <ReactPlayer className={styles["react-player"]} url={s.sourceUrl} width='80%' height='80%'/>
-                          <div>❤️ {s.likes}</div>
-                        </div>
-                      ))}
-                    </div>
+                    <Container>
+                        <Row>
+                        {data.map((s) => (
+                            <span className={styles["player-wrapper"]}>
+                                <ReactPlayer className={styles["react-player"]} url={s.sourceUrl} width='85%' height='90%'/>
+                                <span>❤️ {s.likes}</span>
+                            </span>
+                          ))}
+                        </Row>
+                      </Container>
                   )
               }}
             </Async>

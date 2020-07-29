@@ -45,4 +45,4 @@ const songService = {
     }
 }
 
-module.exports = songService;
+export default songService;

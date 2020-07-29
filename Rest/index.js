@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const config = require('./config/config');
 const songRoute = require('./routes/songs');
+const userRoute = require('./routes/user');
 
 app.use(bodyParser.json());
 
@@ -13,6 +14,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/song', songRoute);
+app.use('/register', userRoute);
 
 app.get('/', (req, res) => {
     res.send('Hello');

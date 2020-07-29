@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Header from './Components/Header/Navigation';
+import Header from './Components/Header/Header';
 import SideBarComponent from './Components/Header/Sidebar';
 
 import 'bootstrap/dist/css/bootstrap.min.css';

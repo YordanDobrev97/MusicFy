@@ -42,7 +42,7 @@ class Register extends Component {
                         <input type='email' name='name' value={this.state.email} className='form-control mb-6 w-50' placeholder='E-mail' onChange={this.updateEmail} />
                         <input type='password'  name='password' value={this.state.password} className='form-control mb-4 sm-2 w-50' placeholder='Password' onChange={this.updatePassword}  />
 
-                        <button className='btn btn-info btn-block my-4' type='submit'>Sign in</button> 
+                        <button className='btn btn-info btn-block my-4' type='submit'>Register</button> 
                     </div>
                 </form>       
             </div>    

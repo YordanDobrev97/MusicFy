@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SideBarComponent from '../Home/Home';
 import userService from '../Services/user';
+import { Redirect } from 'react-router-dom'
 
 class Register extends Component {
     constructor(props) {
@@ -8,14 +9,19 @@ class Register extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            isRegister: false
         }
     }
 
-    registerUser = (event) => {
+    registerUser = async (event) => {
         event.preventDefault();
         const { email, password } = this.state;
-        userService.register(email, password);
+        await userService.register(email, password);
+
+        this.setState({
+            isRegister: true
+        });
     }
 
     updateEmail = (event) => {
@@ -30,10 +36,16 @@ class Register extends Component {
         })
     }
 
+    redirectToLoginAfterRegister = () => {
+        if (this.state.isRegister) {
+            return <Redirect to='/login'/>
+        }
+    }
+
     render() {
         return (
             <div>
-                 <div>
+                <div>
                     <p className='h4 mb-4'>Register</p>
                 </div>
 
@@ -44,8 +56,10 @@ class Register extends Component {
 
                         <button className='btn btn-info btn-block my-4' type='submit'>Register</button> 
                     </div>
-                </form>       
-            </div>    
+                </form>
+
+                {this.redirectToLoginAfterRegister()}
+            </div>
         )
     }
 }

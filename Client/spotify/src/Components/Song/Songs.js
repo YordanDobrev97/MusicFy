@@ -11,7 +11,7 @@ class ListSong extends Component {
   render() {
     return (
       <div>
-        <Songs songs={this.getSongs}/>
+        {/* <Songs songs={this.getSongs}/> */}
       </div>
     );
   }

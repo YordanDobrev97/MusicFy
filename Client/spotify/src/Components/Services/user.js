@@ -1,6 +1,5 @@
 export default {
     register: function(email, password) {
-        console.log('register function')
         const body = {
             email: email,
             password: password

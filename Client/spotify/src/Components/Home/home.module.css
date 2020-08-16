@@ -1,3 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.contaner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 .img {
-    margin-left: 100px;
+    width: 16%;
+    margin-top: 2%;
+    margin-left: 15%;
 }

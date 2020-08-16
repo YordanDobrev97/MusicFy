@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './player.module.css';
-import file from '../Audio/Elitsa Naumova ft. Siso - Na Ruba.mp3';
+import file from '../Audio/Alec Benjamin - Let Me Down Slowly.mp3';
 
 class MusicPlayer extends Component{
     constructor(props) {
@@ -19,8 +19,10 @@ class MusicPlayer extends Component{
     render() {
         return (
             <div>
-                <div className={styles.container}>
-                    <audio className={styles.player} src={file} controls onClick={this.play}></audio>
+               <div className="d-flex justify-content-center">
+                    <audio controls  loop autoplay>
+                        <source src={file} type="audio/ogg" />
+                    </audio>
                 </div>
             </div>
         )

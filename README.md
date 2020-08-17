@@ -1,5 +1,8 @@
 # MusicFy-Project
 
+##Contributors
+** Yordan Dobrev **
+
 **The application is divided into "Client" and "Rest" folders. <br />
 The whole Front-end logic is in the folder Client, the whole back-end logic is in the folder Rest.** <br /><br />
 **Home page show random songs from MongoDb database. <br />

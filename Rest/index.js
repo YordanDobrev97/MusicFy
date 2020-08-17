@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-// const config = require('./config/config');
+const config = require('./config/config');
 const songRoute = require('./routes/songs');
 const userRoute = require('./routes/user');
-const port = 3001;
 
 app.use(bodyParser.json());
 
@@ -21,8 +20,8 @@ app.get('/', (req, res) => {
     res.send('Hello');
 });
 
-app.listen(port, () => {
-    console.log(`Server starting on port ${port}...`);
+app.listen(config.port, () => {
+    console.log(`Server starting on port ${config.port}...`);
 });
 
-// require('./config/db')();
+require('./config/db')();

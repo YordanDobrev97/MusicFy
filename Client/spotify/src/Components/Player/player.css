@@ -1,0 +1,42 @@
+.player-container {
+  margin-top: 20px;
+}
+
+.player-container button {
+  margin: 20px auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+button {
+  margin: 30px;
+  color: white;
+}
+
+.video {
+  display: none;
+}
+
+.play {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 1));
+  width: 40px;
+  height: 32px;
+}
+
+.play::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 62px;
+  height: 10px;
+  border-top: 8px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 25px solid;
+  top: 10px;
+}

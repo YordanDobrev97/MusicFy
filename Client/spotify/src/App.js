@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 import "./App.css";
-import Header from './Components/Header/Header';
-import SideBarComponent from './Components/Header/Sidebar';
-import Footer from './Components/Footer/index';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from "./Components/Navbar/index";
+import Home from "./Components/Home/index";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
-    render() {
-      return (
-        <div className="App">
-            <Header />
-            <SideBarComponent />
-            <Footer />
-        </div>
-      )
-    }
+  render() {
+    return (
+      <div className="App">
+        <Navbar />
+        <Home />
+      </div>
+    );
+  }
 }
 
 export default App;

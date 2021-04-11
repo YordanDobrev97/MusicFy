@@ -16,7 +16,7 @@ const Home = () => {
         const songs = snapshot.docs.map((doc) => doc.data());
         setSongs(songs);
       });
-  });
+  }, []);
   return (
     <div className={styles["song-container"]}>
       {songs.map((song) => {

@@ -11,10 +11,14 @@ const Player = (props) => {
     playerBtn = "pause";
   }
 
+  useEffect(() => {
+    setPlay(true);
+  }, []);
+
   return (
     <div className="player-container">
       <div className="container">
-        <button onClick={() => setPlay(!play)} className={playerBtn}></button>
+        <button className={playerBtn}></button>
       </div>
       <div className="video">
         <iframe

@@ -4,7 +4,8 @@ import Navbar from "./Components/Navbar/index";
 import Home from "./Components/Home/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import Login from "./Components/Login";
+import Login from "./Components/Login/index";
+import Register from "./Components/Register/index";
 import Player from "./Components/Player/index";
 import SongContext from "./SongContext";
 
@@ -19,6 +20,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} linkSong={setSong} />
           <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
         </Switch>
       </SongContext.Provider>
     </div>

@@ -1,17 +1,18 @@
-import React from "react";
-import { Link, Switch, Route } from "react-router-dom";
-import Home from "../Home/index";
-import Login from "../Login/index";
-import Player from "../Player/index";
+import React, { useContext } from "react";
 import Navigation from "./Navigation";
 import ToggleButton from "./ToggleButton";
+import UserContext from "../../UserContext";
 
 const Navbar = () => {
+  const value = useContext(UserContext);
+  console.log(value);
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
       <h1 class="navbar-brand text-white">MusicFy</h1>
       <ToggleButton />
-      <Navigation />
+      <UserContext.Provider value={value}>
+        <Navigation loggedUser={value[0]} />
+      </UserContext.Provider>
     </nav>
   );
 };

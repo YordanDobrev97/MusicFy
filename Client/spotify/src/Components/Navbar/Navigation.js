@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Navigation = () => {
+const uid = localStorage.getItem("uid");
+
+const Navigation = (props) => {
+  const isLogged = uid || props.loggedUser;
+
   return (
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
@@ -15,13 +19,26 @@ const Navigation = () => {
           Songs
         </Link>
 
-        <Link to="/login" className="nav-item nav-link text-white">
-          Login
-        </Link>
+        {isLogged ? (
+          <React.Fragment>
+            <Link to="/profile" className="nav-item nav-link text-white">
+              Profile
+            </Link>
+            <Link to="/logout" className="nav-item nav-link text-white">
+              Logout
+            </Link>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Link to="/login" className="nav-item nav-link text-white">
+              Login
+            </Link>
 
-        <Link to="/register" className="nav-item nav-link text-white">
-          Register
-        </Link>
+            <Link to="/register" className="nav-item nav-link text-white">
+              Register
+            </Link>
+          </React.Fragment>
+        )}
       </div>
     </div>
   );

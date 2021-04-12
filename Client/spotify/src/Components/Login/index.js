@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import UserService from "../../Services/User";
+import UserContext from "../../UserContext";
 
-const Login = () => {
+const Login = (props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const userContext = useContext(UserContext);
+
+  const loginUser = () => {
+    UserService.login(email, password).then((userObj) => {
+      localStorage.setItem("uid", userObj.user.uid);
+      userContext[1](true);
+      console.log("login user context -", userContext);
+      props.history.push("/");
+    });
+  };
+
   return (
     <div id="login">
       <h3 class="text-center text-white pt-5">Login form</h3>
@@ -12,57 +27,65 @@ const Login = () => {
         >
           <div id="login-column" class="col-md-6">
             <div id="login-box" class="col-md-12">
-              <form id="login-form" class="form" action="" method="post">
-                <h3 class="text-center text-info">Login</h3>
-                <div class="form-group">
-                  <label for="username" class="text-info">
-                    Username:
-                  </label>
-                  <br />
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    class="form-control"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="password" class="text-info">
-                    Password:
-                  </label>
-                  <br />
-                  <input
-                    type="text"
-                    name="password"
-                    id="password"
-                    class="form-control"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="remember-me" class="text-info">
-                    <span>Remember me</span> 
-                    <span>
-                      <input
-                        id="remember-me"
-                        name="remember-me"
-                        type="checkbox"
-                      />
-                    </span>
-                  </label>
-                  <br />
-                  <input
-                    type="submit"
-                    name="submit"
-                    class="btn btn-info btn-md"
-                    value="submit"
-                  />
-                </div>
-                <div id="register-link" class="text-right">
-                  <Link to="/register" class="text-info">
-                    Register here
-                  </Link>
-                </div>
-              </form>
+              <h3 class="text-center text-info">Login</h3>
+              <div class="form-group">
+                <label for="email" class="text-info">
+                  Email:
+                </label>
+                <br />
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="password" class="text-info">
+                  Password:
+                </label>
+                <br />
+                <input
+                  type="text"
+                  name="password"
+                  id="password"
+                  placeholder="Enter your password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="remember-me" class="text-info">
+                  <span>Remember me</span> 
+                  <span>
+                    <input
+                      id="remember-me"
+                      name="remember-me"
+                      type="checkbox"
+                    />
+                  </span>
+                </label>
+                <br />
+                <button
+                  type="button"
+                  name="login"
+                  className="btn btn-info btn-md"
+                  onClick={loginUser.bind(this)}
+                >
+                  Login
+                </button>
+              </div>
+              <div id="register-link" class="text-right">
+                <Link to="/register" class="text-info">
+                  Register here
+                </Link>
+              </div>
             </div>
           </div>
         </div>

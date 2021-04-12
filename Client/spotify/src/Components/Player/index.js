@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import firebase from "../../config";
 
 import "./player.css";
 
@@ -8,21 +7,15 @@ const Player = (props) => {
 
   const url = play ? `${props.link}?autoplay=1` : `${props.link}`;
 
-  useEffect(() => {
-    const songs = firebase
-      .firestore()
-      .collection("songs")
-      .get()
-      .then((snapshot) => {
-        const song = snapshot.docs.map((doc) => doc.data());
-        console.log(song);
-      });
-  });
+  let playerBtn = "play";
+  if (play) {
+    playerBtn = "pause";
+  }
 
   return (
     <div className="player-container">
       <div className="container">
-        <button onClick={() => setPlay(!play)} className="play"></button>
+        <button onClick={() => setPlay(!play)} className={playerBtn}></button>
       </div>
       <div className="video">
         <iframe

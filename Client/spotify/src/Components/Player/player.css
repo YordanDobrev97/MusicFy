@@ -40,3 +40,21 @@ button {
   border-left: 25px solid;
   top: 10px;
 }
+
+.pause {
+  box-sizing: border-box;
+  width: 100px;
+  height: 40px;
+  position: relative;
+}
+
+.pause::before {
+  display: block;
+  width: 38%;
+  content: "";
+  background-color: black;
+  height: 38%;
+  position: absolute;
+  top: 10px;
+  left: 11px;
+}

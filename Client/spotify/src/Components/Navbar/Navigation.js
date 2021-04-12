@@ -24,6 +24,9 @@ const Navigation = (props) => {
             <Link to="/profile" className="nav-item nav-link text-white">
               Profile
             </Link>
+            <Link to="/profile" className="nav-item nav-link text-white">
+              Create My Playlist
+            </Link>
             <Link to="/logout" className="nav-item nav-link text-white">
               Logout
             </Link>

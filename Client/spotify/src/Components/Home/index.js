@@ -6,6 +6,8 @@ import SongContext from "../../SongContext";
 
 const Home = (props) => {
   const [songs, setSongs] = useState([]);
+  const [currentCount, setCount] = useState(0);
+  const [maxCount, setMaxCount] = useState(6);
   let setSong = useContext(SongContext);
 
   useEffect(() => {
@@ -24,9 +26,24 @@ const Home = (props) => {
     setSong(youtbeLink);
   };
 
+  const nextSongs = () => {
+    if (maxCount < songs.length) {
+      setCount(maxCount);
+      setMaxCount(maxCount + 6);
+    }
+  };
+
+  const prevSongs = () => {
+    if (!(currentCount == 0 && maxCount == 6)) {
+      setCount(currentCount - 6);
+      setMaxCount(maxCount - 6);
+    }
+  };
+
+  const currentSongs = songs.slice(currentCount, maxCount);
   return (
     <div className={styles["song-container"]}>
-      {songs.map((song) => {
+      {currentSongs.map((song) => {
         return (
           <div
             key={song.youtbeLink}
@@ -55,6 +72,21 @@ const Home = (props) => {
           </div>
         );
       })}
+
+      <nav aria-label="Page navigation example">
+        <ul className="pagination">
+          <li className="page-item">
+            <button className="page-link" onClick={prevSongs}>
+              Previous
+            </button>
+          </li>
+          <li className="page-item">
+            <button className="page-link" onClick={nextSongs}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

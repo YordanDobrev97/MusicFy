@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import firebase from "../../config";
-import Player from "../Player/index";
 
 import styles from "./style.module.css";
+import SongContext from "../../SongContext";
 
-const Home = () => {
+const Home = (props) => {
   const [songs, setSongs] = useState([]);
+  let setSong = useContext(SongContext);
 
   useEffect(() => {
     firebase
@@ -17,18 +18,25 @@ const Home = () => {
         setSongs(songs);
       });
   }, []);
+
+  const playSong = (link) => {
+    const youtbeLink = link.target.value;
+    setSong(youtbeLink);
+  };
+
   return (
     <div className={styles["song-container"]}>
       {songs.map((song) => {
         return (
           <div
-            className="card col-sm-6 w-50"
-            style={{ maxWidth: "30%", backgroundColor: "firebrick" }}
+            key={song.youtbeLink}
+            className="card col-sm-6 "
+            style={{ maxWidth: "30%", backgroundColor: "slategrey" }}
           >
             <h3>
               {song.artist} - {song.name}
             </h3>
-            ;
+
             <img
               width="200"
               height="180"
@@ -37,7 +45,13 @@ const Home = () => {
                 margin: "auto",
               }}
             />
-            <Player link={song.youtubeLink} />
+            <button
+              className="m-auto w-25 btn btn-primary"
+              value={song.youtubeLink}
+              onClick={playSong.bind(this)}
+            >
+              Play
+            </button>
           </div>
         );
       })}

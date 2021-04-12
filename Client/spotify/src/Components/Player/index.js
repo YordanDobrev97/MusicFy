@@ -6,7 +6,6 @@ const Player = (props) => {
   const [play, setPlay] = useState(false);
 
   const url = play ? `${props.link}?autoplay=1` : `${props.link}`;
-
   let playerBtn = "play";
   if (play) {
     playerBtn = "pause";

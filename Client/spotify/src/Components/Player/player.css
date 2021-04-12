@@ -1,18 +1,26 @@
 .player-container {
-  margin-top: 20px;
+  background: rgb(96, 97, 97);
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  top: -6px;
 }
 
 .player-container button {
-  margin: 20px auto;
+  margin: 6px auto;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: red;
+  background-color: rgb(240, 240, 240);
+}
+
+.container {
+  height: 50px;
 }
 
 button {
-  margin: 30px;
-  color: white;
+  margin: 30px auto;
+  color: black;
 }
 
 .video {
@@ -44,7 +52,7 @@ button {
 .pause {
   box-sizing: border-box;
   width: 100px;
-  height: 40px;
+  height: 20px;
   position: relative;
 }
 
@@ -52,7 +60,7 @@ button {
   display: block;
   width: 38%;
   content: "";
-  background-color: black;
+  background-color: rgb(121, 116, 116);
   height: 38%;
   position: absolute;
   top: 10px;

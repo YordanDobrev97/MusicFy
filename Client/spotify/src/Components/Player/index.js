@@ -1,35 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import "./player.css";
+import SongContext from '../../SongContext'
 
 const Player = (props) => {
-  const [play, setPlay] = useState(false);
-
-  const url = play ? `${props.link}?autoplay=1` : `${props.link}`;
-  let playerBtn = "play";
-  if (play) {
-    playerBtn = "pause";
-  }
+  const context = useContext(SongContext)
+  const [song, setPlay] = useState(context[0]);
+  const [time, setTime] = useState("0")
+  const [currentTime, setCurrentTime] = useState("0")
+  const [songName, setName] = useState("")
 
   useEffect(() => {
-    setPlay(true);
-  }, []);
+    const {link, time, name} = context[0];
+    console.log(link);
+    setPlay(link + '?autoplay=1')
+    setTime(time)
+    setName(name)
+  }, [context]);
 
   return (
-    <div className="player-container">
-      <div className="container">
-        <button className={playerBtn}></button>
-      </div>
-      <div className="video">
+    <div class="container-audio">
+        <h1>You are currently listening: {songName}</h1>
+        <p>Time: {time}</p>
+        {song ? (<React.Fragment></React.Fragment>) : (<button>Pause</button>)}
         <iframe
           width="560"
           height="315"
-          src={url}
+          src={song}
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
-        ></iframe>
-      </div>
+      ></iframe>
     </div>
   );
 };

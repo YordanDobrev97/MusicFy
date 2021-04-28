@@ -16,7 +16,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <SongContext.Provider value={setSong}>
+      <SongContext.Provider value={[song, setSong]}>
         <UserContext.Provider value={[user, setUser]}>
           <Navbar />
           <Player link={song} />

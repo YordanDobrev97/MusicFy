@@ -8,8 +8,10 @@ const Home = (props) => {
   const [songs, setSongs] = useState([]);
   const [currentCount, setCount] = useState(0);
   const [maxCount, setMaxCount] = useState(6);
-  let setSong = useContext(SongContext);
+  const [isPlaySong, setPlaySong] = useState('Play');
 
+  let setSong = useContext(SongContext);
+  let message = 'Play'
   useEffect(() => {
     firebase
       .firestore()
@@ -22,8 +24,8 @@ const Home = (props) => {
   }, []);
 
   const playSong = (link) => {
-    const youtbeLink = link.target.value;
-    setSong(youtbeLink);
+    const songData = JSON.parse(link.target.value)
+    setSong[1](songData);
   };
 
   const nextSongs = () => {
@@ -44,9 +46,15 @@ const Home = (props) => {
   return (
     <div className={styles["song-container"]}>
       {currentSongs.map((song) => {
+        const key = song.name;
+        const songData = JSON.stringify({
+          name: song.name,
+          link: song.youtubeLink,
+          time: song.totalTime
+        })
         return (
           <div
-            key={song.youtbeLink}
+            key={key}
             className="card col-sm-6 "
             style={{ maxWidth: "30%", backgroundColor: "slategrey" }}
           >
@@ -64,7 +72,7 @@ const Home = (props) => {
             />
             <button
               className="m-auto w-25 btn btn-primary"
-              value={song.youtubeLink}
+              value={songData}
               onClick={playSong.bind(this)}
             >
               Play

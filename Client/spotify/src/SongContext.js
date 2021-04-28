@@ -1,4 +1,4 @@
 import React from "react";
 
-const SongContext = React.createContext("");
+const SongContext = React.createContext({});
 export default SongContext;

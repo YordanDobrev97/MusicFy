@@ -11,20 +11,25 @@ body {
 h3{
     text-shadow:1px 1px 1px #fff;
 }
+
 /* Start  styling the page */
 .container-audio {
-    width: 66%;
+    width: 50%;
     height: auto;
-    padding: 10px;
+    padding: 3px;
     border-radius: 5px;
     background-color: #eee;
     color: #444;
-    margin: 10px auto;
+    margin: 0px auto;
     overflow: hidden;
 }
 
-iframe {
+.no-video {
   display: none;
+}
+
+.video {
+  display: block;
 }
 
 audio {

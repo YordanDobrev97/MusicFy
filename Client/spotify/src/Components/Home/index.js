@@ -25,6 +25,7 @@ const Home = (props) => {
 
   const playSong = (link) => {
     const songData = JSON.parse(link.target.value)
+    console.log(songData);
     setSong[1](songData);
   };
 
@@ -50,7 +51,6 @@ const Home = (props) => {
         const songData = JSON.stringify({
           name: song.name,
           link: song.youtubeLink,
-          time: song.totalTime
         })
         return (
           <div

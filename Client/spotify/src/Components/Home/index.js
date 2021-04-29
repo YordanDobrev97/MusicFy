@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import firebase from "../../config";
+import React, { useState, useEffect, useContext } from "react"
+import firebase from "../../config"
 
-import styles from "./style.module.css";
-import SongContext from "../../SongContext";
-
+import SongContext from "../../SongContext"
 import SongService from '../../Services/Song'
+
+const uid = localStorage.getItem("uid")
 
 const Home = (props) => {
   const [songs, setSongs] = useState([]);
@@ -19,10 +19,17 @@ const Home = (props) => {
     })
   }, []);
 
-  const playSong = (link) => {
-    const songData = JSON.parse(link.target.value)
+  const playSong = (e) => {
+    const songData = JSON.parse(e.target.value)
     setSong[1](songData);
   };
+
+  const addFavorite = async (e) => {
+   const id = e.target.value;
+    if (uid) {
+      await SongService.addFavorite(uid, id)
+    }
+  }
 
   const nextSongs = () => {
     if (maxCount < songs.length) {
@@ -32,7 +39,7 @@ const Home = (props) => {
   };
 
   const prevSongs = () => {
-    if (!(currentCount == 0 && maxCount == 6)) {
+    if (!(currentCount === 0 && maxCount === 6)) {
       setCount(currentCount - 6);
       setMaxCount(maxCount - 6);
     }
@@ -42,33 +49,32 @@ const Home = (props) => {
   return (
     <div>
       <div className="row mt-3">
-      {currentSongs.map((song) => {
-        const key = song.name;
-        const songData = JSON.stringify({
-          name: song.name,
-          link: song.youtubeLink,
-        })
+        {currentSongs.map((song) => {
+          const songData = JSON.stringify({
+            name: song.name,
+            link: song.youtubeLink,
+          })
 
-        return (
-            <div className="col-lg-4 flex-wrap">
-              <h2 className="text-dark">{song.name}</h2>
+          return (
+            <div key={song.id} className="col-lg-4 flex-wrap">
+                <h2 className="text-dark">{song.name}</h2>
 
-              <img className="w-50 h-50" src={song.image}/>
+                <img className="w-50 h-50" src={song.image}/>
 
-              <div className="row m-2 align-items-center">
-                  <button className="m-auto btn btn-primary" value={songData} onClick={playSong.bind(this)}>
-                    Play
+                <div className="row m-2 align-items-center">
+                    <button className="m-auto btn btn-primary" value={songData} onClick={playSong.bind(this)}>
+                      Play
+                    </button>
+                </div>
+
+                <div className="row m-2 align-items-center">
+                  <button onClick={addFavorite} value={song.id} className="text-uppercase m-auto mb-3 btn btn-danger">
+                    add to favorites
                   </button>
-              </div>
-
-              <div className="row m-2 align-items-center">
-                <button className="text-uppercase m-auto mb-3 btn btn-danger">
-                  add to favorites
-                </button>
-              </div>
-          </div>
-        );
-      })}
+                </div>
+            </div>
+          );
+        })}
       </div>
 
       <nav className="mt-4 nav justify-content-center">
@@ -85,8 +91,8 @@ const Home = (props) => {
           </li>
         </ul>
       </nav>
-  </div>
-  );
-};
+    </div>
+  )
+}
 
-export default Home;
+export default Home

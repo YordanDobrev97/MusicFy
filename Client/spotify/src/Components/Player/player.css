@@ -427,18 +427,16 @@ body {
   z-index: 1;
 }
 .main-control .btn._timeline > span.timescope:before {
-  width: 100%;
+  width: 60%;
   opacity: .2;
 }
 .main-control .btn._timeline > span.timescope:after {
-  width: 63%;
+  width: 100%;
 }
 .main-control .btn._timeline > span.timescope .timescope-dot {
   top: -2.5px;
   left: 63%;
   z-index: 3;
-  width: 8px;
-  height: 8px;
   border-radius: 100%;
 }
 

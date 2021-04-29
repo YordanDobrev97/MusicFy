@@ -1,11 +1,1 @@
-.song-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0px auto;
-  justify-content: center;
-}
 
-.song h1 {
-  padding: 10px;
-  font-size: 14px;
-}

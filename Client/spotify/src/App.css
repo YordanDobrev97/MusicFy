@@ -37,7 +37,6 @@
   }
 }
 
-
-.gretting {
-    color: red;
+.song-container {
+  max-width: 50%;
 }

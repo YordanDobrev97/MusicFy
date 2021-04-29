@@ -4,28 +4,23 @@ import firebase from "../../config";
 import styles from "./style.module.css";
 import SongContext from "../../SongContext";
 
+import SongService from '../../Services/Song'
+
 const Home = (props) => {
   const [songs, setSongs] = useState([]);
   const [currentCount, setCount] = useState(0);
   const [maxCount, setMaxCount] = useState(6);
-  const [isPlaySong, setPlaySong] = useState('Play');
 
   let setSong = useContext(SongContext);
-  let message = 'Play'
+
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("songs")
-      .get()
-      .then((snapshot) => {
-        const songs = snapshot.docs.map((doc) => doc.data());
-        setSongs(songs);
-      });
+    SongService.getAll().then(songs => {
+      setSongs(songs);
+    })
   }, []);
 
   const playSong = (link) => {
     const songData = JSON.parse(link.target.value)
-    console.log(songData);
     setSong[1](songData);
   };
 
@@ -45,43 +40,38 @@ const Home = (props) => {
 
   const currentSongs = songs.slice(currentCount, maxCount);
   return (
-    <div className={styles["song-container"]}>
+    <div>
+      <div className="row mt-3">
       {currentSongs.map((song) => {
         const key = song.name;
         const songData = JSON.stringify({
           name: song.name,
           link: song.youtubeLink,
         })
-        return (
-          <div
-            key={key}
-            className="card col-sm-6 "
-            style={{ maxWidth: "30%", backgroundColor: "slategrey" }}
-          >
-            <h3>
-              {song.artist} - {song.name}
-            </h3>
 
-            <img
-              width="200"
-              height="180"
-              src={song.image}
-              style={{
-                margin: "auto",
-              }}
-            />
-            <button
-              className="m-auto w-25 btn btn-primary"
-              value={songData}
-              onClick={playSong.bind(this)}
-            >
-              Play
-            </button>
+        return (
+            <div className="col-lg-4 flex-wrap">
+              <h2 className="text-dark">{song.name}</h2>
+
+              <img className="w-50 h-50" src={song.image}/>
+
+              <div className="row m-2 align-items-center">
+                  <button className="m-auto btn btn-primary" value={songData} onClick={playSong.bind(this)}>
+                    Play
+                  </button>
+              </div>
+
+              <div className="row m-2 align-items-center">
+                <button className="text-uppercase m-auto mb-3 btn btn-danger">
+                  add to favorites
+                </button>
+              </div>
           </div>
         );
       })}
+      </div>
 
-      <nav aria-label="Page navigation example">
+      <nav className="mt-4 nav justify-content-center">
         <ul className="pagination">
           <li className="page-item">
             <button className="page-link" onClick={prevSongs}>
@@ -95,7 +85,7 @@ const Home = (props) => {
           </li>
         </ul>
       </nav>
-    </div>
+  </div>
   );
 };
 

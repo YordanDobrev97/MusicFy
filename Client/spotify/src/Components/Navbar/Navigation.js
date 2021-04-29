@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 const uid = localStorage.getItem("uid");
 
 const Navigation = (props) => {
-  const isLogged = uid || props.loggedUser;
+  let isLogged = uid || props.loggedUser;
+
+  const logoutUser = () => {
+    localStorage.removeItem('uid')
+    props.loggedHandler(false)
+  }
 
   return (
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -12,24 +17,15 @@ const Navigation = (props) => {
         <Link to="/" className="nav-item nav-link active text-white">
           Home <span class="sr-only">(current)</span>
         </Link>
-        <Link to="/artists" className="nav-item nav-link text-white">
-          Artists
-        </Link>
-        <Link to="/songs" className="nav-item nav-link text-white">
-          Songs
-        </Link>
 
         {isLogged ? (
           <React.Fragment>
             <Link to="/profile" className="nav-item nav-link text-white">
               Profile
             </Link>
-            <Link to="/profile" className="nav-item nav-link text-white">
-              Create My Playlist
-            </Link>
-            <Link to="/logout" className="nav-item nav-link text-white">
+            <button onClick={logoutUser} className="text-white btn btn-link">
               Logout
-            </Link>
+            </button>
           </React.Fragment>
         ) : (
           <React.Fragment>

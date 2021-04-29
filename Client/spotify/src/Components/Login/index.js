@@ -12,7 +12,6 @@ const Login = (props) => {
     UserService.login(email, password).then((userObj) => {
       localStorage.setItem("uid", userObj.user.uid);
       userContext[1](true);
-      console.log("login user context -", userContext);
       props.history.push("/");
     });
   };
@@ -50,7 +49,7 @@ const Login = (props) => {
                 </label>
                 <br />
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   id="password"
                   placeholder="Enter your password"
@@ -61,17 +60,6 @@ const Login = (props) => {
                 />
               </div>
               <div class="form-group">
-                <label for="remember-me" class="text-info">
-                  <span>Remember me</span> 
-                  <span>
-                    <input
-                      id="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                    />
-                  </span>
-                </label>
-                <br />
                 <button
                   type="button"
                   name="login"

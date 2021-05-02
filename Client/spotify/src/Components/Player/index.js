@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./player.css";
 import SongContext from '../../SongContext'
 
 const Player = (props) => {
@@ -20,20 +19,25 @@ const Player = (props) => {
   }, [context, songName]);
 
   return (
-    <div class="container-audio">
-        <h1>You are currently listening: {songName}</h1>
-    <div className={video}>
-      <div className="video">
-        <iframe
-          width="560"
-          height="315"
-          src={song}
-          frameborder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-      ></iframe>
-      </div>
-    </div>
+    <div>
+        <h1 className="text-center">You are currently listening: {songName}</h1>
+        {video == 'no-video' ? ( <React.Fragment></React.Fragment>) : (
+           (
+            <div>
+              <div>
+                <iframe
+                  className="embed-responsive col-xs-6 text-center"
+                  width="560"
+                  height="315"
+                  src={song}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+              ></iframe>
+              </div>
+           </div>
+          )
+        )}
     </div>
   );
 };

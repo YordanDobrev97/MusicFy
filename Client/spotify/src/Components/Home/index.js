@@ -48,7 +48,7 @@ const Home = (props) => {
   const currentSongs = songs.slice(currentCount, maxCount);
   return (
     <div>
-      <div className="row mt-3">
+      <div className="row m-auto">
         {currentSongs.map((song) => {
           const songData = JSON.stringify({
             name: song.name,
@@ -57,9 +57,11 @@ const Home = (props) => {
 
           return (
             <div key={song.id} className="col-lg-4 flex-wrap">
-                <h2 className="text-dark">{song.name}</h2>
+                <h2 className="text-dark text-center">{song.name}</h2>
 
-                <img className="w-50 h-50" src={song.image}/>
+                <div className="text-center">
+                  <img className="w-50 h-50" src={song.image}/>
+                </div>
 
                 <div className="row m-2 align-items-center">
                     <button className="m-auto btn btn-primary" value={songData} onClick={playSong.bind(this)}>

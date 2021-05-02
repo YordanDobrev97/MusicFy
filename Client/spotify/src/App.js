@@ -1,5 +1,4 @@
 import React, { Component, useState, useContext } from "react"
-import "./App.css"
 import Navbar from "./Components/Navbar/index"
 import Home from "./Components/Home/index"
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -16,7 +15,7 @@ const App = () => {
   const [user, setUser] = useState(false);
 
   return (
-    <div className="App">
+    <div>
       <SongContext.Provider value={[song, setSong]}>
         <UserContext.Provider value={[user, setUser]}>
           <Navbar />

@@ -21,7 +21,9 @@ const Profile = () => {
   }, []);
 
   if (!isLoad) {
-    return <div>Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center bg-info">Loading...</div>
+    );
   }
 
   return (

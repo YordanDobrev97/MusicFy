@@ -1,64 +1,61 @@
 import firebase from "firebase";
 
 const getCollectionUser = async (uid) => {
-    const collection = await firebase
-    .firestore()
-    .collection('favorites')
-    .orderBy('userId')
-    .startAt(uid)
-    .get();
+  let favorites = await firebase.firestore().collection("favorites").get();
 
-    const userDoc = collection.docs.map((doc) => {
-      return {id: doc.id, ...doc.data()}
-    })[0]
+  let userDoc = [];
+  favorites.docs.forEach((f) => {
+    const obj = f.data();
+    console.log(obj.userId === uid);
+    if (obj.userId === uid) {
+      userDoc.push({ id: f.id, ...obj });
+    }
+  });
 
-    return userDoc;
-}
+  return userDoc[0];
+};
+
+const getAll = async () => {
+  let songs = await firebase.firestore().collection("songs").get();
+  songs = songs.docs.map((doc) => {
+    return { id: doc.id, ...doc.data() };
+  });
+
+  return songs;
+};
 
 const extractSongs = async (userCollection) => {
-  const songs = []
-
+  const songs = [];
+  console.log(userCollection);
   for (const id of userCollection) {
     const song = await firebase
       .firestore()
-      .collection('songs')
+      .collection("songs")
       .doc(id)
       .get()
       .then((doc) => {
-        return doc.data()
+        return doc.data();
       });
-      songs.push(song)
+    songs.push(song);
   }
 
   return songs;
-}
+};
 
 export default {
-  getAll: async () => {
-    let songs = await firebase.firestore().collection("songs").get();
-    songs = songs.docs.map((doc) => {
-      return {id: doc.id, ...doc.data()}
-    });
-    return songs;
-  },
-
+  getAll,
   getFavoritesUser: async (uid) => {
-    const userCollection = await getCollectionUser(uid)
-    const songs = await extractSongs(userCollection.songs);
-    return songs;
+    const userCollection = await getCollectionUser(uid);
+    return userCollection ? await extractSongs(userCollection.songs) : [];
   },
 
   addFavorite: async (uid, id) => {
-    const userDoc = await getCollectionUser(uid)
-    userDoc.songs.push(id)
+    const userDoc = await getCollectionUser(uid);
+    userDoc.songs.push(id);
 
-    await firebase
-    .firestore()
-    .collection("favorites")
-    .doc(userDoc.id)
-    .set({
+    await firebase.firestore().collection("favorites").doc(userDoc.id).set({
       userId: userDoc.userId,
-      songs: userDoc.songs
-    })
-  }
-}
+      songs: userDoc.songs,
+    });
+  },
+};

@@ -4,14 +4,13 @@ import firebase from "../../config";
 import SongContext from "../../SongContext";
 import SongService from "../../Services/Song";
 
-const uid = localStorage.getItem("uid");
-
 const Home = () => {
   const [songs, setSongs] = useState([]);
   const [currentCount, setCount] = useState(0);
   const [maxCount, setMaxCount] = useState(6);
   const [favoriteMessage, setMessage] = useState("");
   const [alert, setAlert] = useState(false);
+  const [messageStyles, setStyles] = useState("");
 
   let setSong = useContext(SongContext);
 
@@ -26,23 +25,35 @@ const Home = () => {
     setSong[1](songData);
   };
 
+  const setTimeoutMessage = (message) => {
+    setTimeout(() => {
+      setMessage(message);
+      setAlert(true);
+    }, 1000);
+  };
+
   const addFavorite = async (e) => {
     const id = e.target.value;
+    const uid = localStorage.getItem("uid");
     if (uid) {
       await SongService.addFavorite(uid, id);
+      setTimeoutMessage("Successfully add to favorites");
+      setStyles(
+        "d-flex justify-content-center w-50 m-auto border border-success bg-success text-light"
+      );
     } else {
-      setTimeout(() => {
-        setMessage("You must log in to add to favorites");
-        setAlert(true);
-      }, 1000);
+      setTimeoutMessage("You must log in to add to favorites");
+      setStyles(
+        "d-flex justify-content-center w-50 m-auto border border-danger bg-danger text-light"
+      );
     }
   };
 
   if (alert) {
     setTimeout(() => {
-        setAlert(false);
-        setMessage("");
-    }, 1000)
+      setAlert(false);
+      setMessage("");
+    }, 1000);
   }
 
   const nextSongs = () => {
@@ -63,9 +74,7 @@ const Home = () => {
   return (
     <div>
       {alert && favoriteMessage ? (
-        <span className="d-flex justify-content-center w-50 m-auto border border-danger bg-danger text-light">
-          {favoriteMessage}
-        </span>
+        <span className={messageStyles}>{favoriteMessage}</span>
       ) : (
         <React.Fragment></React.Fragment>
       )}

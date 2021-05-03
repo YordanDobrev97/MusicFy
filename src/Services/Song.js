@@ -2,7 +2,6 @@ import firebase from "firebase";
 
 const getCollectionUser = async (uid) => {
   let favorites = await firebase.firestore().collection("favorites").get();
-
   let userDoc = [];
   favorites.docs.forEach((f) => {
     const obj = f.data();
@@ -26,7 +25,6 @@ const getAll = async () => {
 
 const extractSongs = async (userCollection) => {
   const songs = [];
-  console.log(userCollection);
   for (const id of userCollection) {
     const song = await firebase
       .firestore()
@@ -42,6 +40,19 @@ const extractSongs = async (userCollection) => {
   return songs;
 };
 
+const createUserFavoriteCollection = async (uid, id) => {
+  const document = await firebase
+    .firestore()
+    .collection("favorites")
+    .doc(uid)
+    .get();
+  await document.ref.set({
+    id: uid,
+    userId: uid,
+    songs: [id],
+  });
+};
+
 export default {
   getAll,
   getFavoritesUser: async (uid) => {
@@ -50,12 +61,18 @@ export default {
   },
 
   addFavorite: async (uid, id) => {
-    const userDoc = await getCollectionUser(uid);
-    userDoc.songs.push(id);
+    let userDoc = await getCollectionUser(uid);
 
-    await firebase.firestore().collection("favorites").doc(userDoc.id).set({
-      userId: userDoc.userId,
-      songs: userDoc.songs,
-    });
+    //not exist user in favorites collection
+    if (!userDoc) {
+      createUserFavoriteCollection(uid, id);
+      userDoc = await getCollectionUser(uid);
+    } else {
+      userDoc.songs.push(id);
+      await firebase.firestore().collection("favorites").doc(userDoc.id).set({
+        userId: userDoc.userId,
+        songs: userDoc.songs,
+      });
+    }
   },
 };

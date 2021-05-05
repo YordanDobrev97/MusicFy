@@ -5,7 +5,6 @@ const getCollectionUser = async (uid) => {
   let userDoc = [];
   favorites.docs.forEach((f) => {
     const obj = f.data();
-    console.log(obj.userId === uid);
     if (obj.userId === uid) {
       userDoc.push({ id: f.id, ...obj });
     }

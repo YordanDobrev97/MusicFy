@@ -11,7 +11,6 @@ const Profile = () => {
     const uid = localStorage.getItem("uid");
     SongService.getFavoritesUser(uid).then((resultSongs) => {
       if (resultSongs.length === 0) {
-        console.log(resultSongs);
         setMessage("There are no songs");
       } else {
         setSongs(resultSongs);

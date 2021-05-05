@@ -12,7 +12,6 @@ const Register = (props) => {
       return;
     }
     UserService.register(email, password).then((r) => {
-      console.log(props);
       props.history.push("/login");
     });
   };

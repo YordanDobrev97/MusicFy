@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { ApolloProvider } from '@apollo/client'
 import {
   AppBar,
   Toolbar,
@@ -10,7 +11,7 @@ import { createTheme } from '@mui/material/styles'
 import {
   MusicFyProvider
 } from './context/MusicFyContext'
-
+import { client } from './services/apolloClient'
 import LeftToolbar from './components/Toolbar'
 import Logo from './components/Logo'
 
@@ -33,27 +34,29 @@ const appTheme = createTheme({
 
 const App = () => {
   return (
-    <ThemeProvider theme={appTheme}>
-      <MusicFyProvider>
-        <BrowserRouter>
-          <AppBar position='fixed'>
-            <Toolbar>
-              <Logo />
-            </Toolbar>
-            <LeftToolbar />
-          </AppBar>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={appTheme}>
+        <MusicFyProvider>
+          <BrowserRouter>
+            <AppBar position='fixed'>
+              <Toolbar>
+                <Logo />
+              </Toolbar>
+              <LeftToolbar />
+            </AppBar>
 
-          <Box component='main' className='main-content'>
-            <Routes>
-              <Route path='/' element={<Navigate to='/home' />}/>
-              <Route path='/home' element={<HomePage />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/signup' element={<SignUp />} />
-            </Routes>
-          </Box>
-        </BrowserRouter>
-      </MusicFyProvider>
-    </ThemeProvider>
+            <Box component='main' className='main-content'>
+              <Routes>
+                <Route path='/' element={<Navigate to='/home' />} />
+                <Route path='/home' element={<HomePage />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<SignUp />} />
+              </Routes>
+            </Box>
+          </BrowserRouter>
+        </MusicFyProvider>
+      </ThemeProvider>
+    </ApolloProvider>
   )
 }
 

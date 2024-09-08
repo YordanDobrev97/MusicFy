@@ -1,15 +1,26 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useMutation } from '@apollo/client'
 import { Container, Box, Typography } from '@mui/material'
 
+import { SIGN_UP_USER } from '../graphql/mutations'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
 
 function CustomForm() {
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const [signUpUser, { loading, error }] = useMutation(SIGN_UP_USER)
 
-  const onSubmit = (data) => {
-    console.log('Form Data:', data)
+  const onSubmit = async (data) => {
+    try {
+      const response = await signUpUser({ 
+        variables: { email: data.email, password: data.password }
+      })
+
+      console.log('User created:', response.data.createUser)
+    } catch (error) {
+      console.error('Error creating user:', error)
+    }
   }
 
   return (

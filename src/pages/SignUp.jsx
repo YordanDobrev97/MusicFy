@@ -7,13 +7,13 @@ import { SIGN_UP_USER } from '../graphql/mutations'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
 
-function CustomForm() {
+function SignUp() {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [signUpUser, { loading, error }] = useMutation(SIGN_UP_USER)
 
   const onSubmit = async (data) => {
     try {
-      const response = await signUpUser({ 
+      const response = await signUpUser({
         variables: { email: data.email, password: data.password }
       })
 
@@ -72,7 +72,7 @@ function CustomForm() {
         </Button>
       </Box>
     </Container>
-  );
+  )
 }
 
-export default CustomForm
+export default SignUp

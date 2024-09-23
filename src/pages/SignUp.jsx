@@ -1,68 +1,91 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useForm, Controller } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
 import { Container, Box, Typography } from '@mui/material'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
 
+import authShema from '../validationSchemas/authSchema'
 import { SIGN_UP_USER } from '../graphql/mutations'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
+import constants from '../constants'
+import { Toast } from '../toastConfig/toastConfig'
+import { formBoxStyles } from '../styles/styles'
 
 function SignUp() {
-  const { register, handleSubmit, formState: { errors } } = useForm()
-  const [signUpUser, { loading, error }] = useMutation(SIGN_UP_USER)
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(authShema),
+  })
+  
+  const handleSuccess = useCallback(() => {
+    toast.success('Registration successful! Redirecting to login...')
+    setTimeout(() => navigate('/login'), constants.REDIRECT_TIMEOUT)
+  }, [])
 
-  const onSubmit = async (data) => {
-    try {
-      const response = await signUpUser({
-        variables: { email: data.email, password: data.password }
-      })
+  const handleError = useCallback((error) => {
+    toast.error(`Error: ${error.message}`)
+    console.error('Error creating user:', error)
+  }, [])
 
-      console.log('User created:', response.data.createUser)
-    } catch (error) {
-      console.error('Error creating user:', error)
-    }
-  }
+  const [signUpUser] = useMutation(SIGN_UP_USER, {
+    onCompleted: handleSuccess,
+    onError: handleError,
+  })
+  const navigate = useNavigate()
+
+  const onSubmit = useCallback(async (data) => {
+    await signUpUser({ variables: { email: data.email, password: data.password } })
+  }, [signUpUser])
 
   return (
     <Container maxWidth='md'>
+      <Toast />
+
       <Box
         component='form'
         onSubmit={handleSubmit(onSubmit)}
-        sx={{
-          mt: 5,
-          p: 4,
-          borderRadius: '12px',
-          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-          backgroundColor: '#ffffff',
-        }}
+        sx={formBoxStyles}
       >
         <Typography variant='h4' sx={{ textAlign: 'center', mb: 2, color: '#42a5f5' }}>
           Sign Up
         </Typography>
 
-        <TextField
-          fullWidth
-          label='Email'
-          margin='normal'
-          type='email'
-          {...register('email', { required: 'Email is required' })}
-          error={!!errors.email}
-          helperText={errors.email ? errors.email.message : ''}
+        <Controller
+          name='email'
+          control={control}
+          defaultValue=''
+          render={({ field }) => (
+            <TextField
+              {...field}
+              fullWidth
+              label='Email'
+              margin='normal'
+              type='email'
+              error={!!errors.email}
+              helperText={errors.email?.message}
+            />
+          )}
         />
 
-        <TextField
-          fullWidth
-          label='Password'
-          margin='normal'
-          type='password'
-          {...register('password', { 
-            required: 'Password is required', 
-            minLength: { value: 6, message: 'Password must be at least 6 characters long' }
-          })}
-          error={!!errors.password}
-          helperText={errors.password ? errors.password.message : ''}
+        <Controller
+          name='password'
+          control={control}
+          defaultValue=''
+          render={({ field }) => (
+            <TextField
+              {...field}
+              fullWidth
+              label='Password'
+              margin='normal'
+              type='password'
+              error={!!errors.password}
+              helperText={errors.password?.message}
+            />
+          )}
         />
-
+        
         <Button
           type='submit'
           fullWidth

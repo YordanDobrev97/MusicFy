@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import { ApolloProvider } from '@apollo/client'
 import {
   AppBar,
@@ -8,6 +9,7 @@ import {
 } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 
+import { store } from './store'
 import {
   MusicFyProvider
 } from './context/MusicFyContext'
@@ -25,7 +27,7 @@ const appTheme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         colorPrimary: {
-          backgroundColor: "white"
+          backgroundColor: 'white'
         }
       }
     }
@@ -34,29 +36,31 @@ const appTheme = createTheme({
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={appTheme}>
-        <MusicFyProvider>
-          <BrowserRouter>
-            <AppBar position='fixed'>
-              <Toolbar>
-                <Logo />
-              </Toolbar>
-              <LeftToolbar />
-            </AppBar>
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={appTheme}>
+          <MusicFyProvider>
+            <BrowserRouter>
+              <AppBar position='fixed'>
+                <Toolbar>
+                  <Logo />
+                </Toolbar>
+                <LeftToolbar />
+              </AppBar>
 
-            <Box component='main' className='main-content'>
-              <Routes>
-                <Route path='/' element={<Navigate to='/home' />} />
-                <Route path='/home' element={<HomePage />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/signup' element={<SignUp />} />
-              </Routes>
-            </Box>
-          </BrowserRouter>
-        </MusicFyProvider>
-      </ThemeProvider>
-    </ApolloProvider>
+              <Box component='main' className='main-content'>
+                <Routes>
+                  <Route path='/' element={<Navigate to='/home' />} />
+                  <Route path='/home' element={<HomePage />} />
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/signup' element={<SignUp />} />
+                </Routes>
+              </Box>
+            </BrowserRouter>
+          </MusicFyProvider>
+        </ThemeProvider>
+      </ApolloProvider>
+    </Provider>
   )
 }
 

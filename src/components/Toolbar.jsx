@@ -26,7 +26,7 @@ const Toolbar = () => {
     return (
         <motion.div
             style={{
-                display: drawerOpen ? 'block' : 'none'
+                display: drawerOpen ? 'block' : 'none',
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -34,7 +34,7 @@ const Toolbar = () => {
             transition={{ duration: 5.5 }}
         >
             <Drawer open={drawerOpen} onClose={() => { setOpenToolbar() }}>
-                <Box sx={{ width: 200 }}>
+                <Box sx={{ width: 200}}>
                     <List>
                         {menu.map((menuItem) => (
                             <Link key={menuItem.text} to={`/${menuItem.text.toLowerCase()}`} onClick={() => setOpenToolbar()}>

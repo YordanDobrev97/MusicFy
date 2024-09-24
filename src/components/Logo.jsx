@@ -17,8 +17,8 @@ const Logo = () => {
 
     return (
         <IconButton onClick={showDrawer}>
-            <Menu />
-            <Typography variant='h6'>MusicFy</Typography>
+            <Menu sx={{color: 'white'}}/>
+            <Typography variant='h5' color='white'>MusicFy</Typography>
         </IconButton>
     )
 }

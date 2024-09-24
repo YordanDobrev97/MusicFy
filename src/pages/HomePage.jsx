@@ -8,7 +8,7 @@ function HomePage() {
   return (
     <div>
       <h1>Home Page</h1>
-      <p>Logged in: {user || 'No logged in'}</p>
+      <p>Logged in: {user && user.email || 'No logged in'}</p>
     </div>
   )
 }

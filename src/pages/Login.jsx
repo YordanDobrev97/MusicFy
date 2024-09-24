@@ -41,7 +41,7 @@ function Login() {
   const onSubmit = useCallback(async (data) => {
     const response = await login({ variables: { email: data.email, password: data.password } })
     localStorage.setItem('access_token', response.data.login)
-    dispatch(setUser(data.email))
+    dispatch(setUser({ email: data.email }))
   }, [login])
 
   return (

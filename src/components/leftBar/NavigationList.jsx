@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
@@ -13,5 +14,14 @@ const NavigationList = ({ links }) => (
         ))}
     </List>
 );
+
+NavigationList.propTypes = {
+    links: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            url: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+};
 
 export default NavigationList;

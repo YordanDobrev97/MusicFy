@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Box, Button, Slider, Typography } from '@mui/material';
 
 const VideoPlayer = () => {

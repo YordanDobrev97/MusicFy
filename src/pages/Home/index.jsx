@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
 import useFetchSongs from '../../customHooks/useFetchSongs';

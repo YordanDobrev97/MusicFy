@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { IconButton, Typography, Box } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -14,5 +15,12 @@ const LoggedInView = ({ user }) => (
         </Typography>
     </Box>
 );
+
+LoggedInView.propTypes = {
+    user: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+    }).isRequired,
+};
 
 export default LoggedInView;

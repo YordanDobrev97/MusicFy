@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Drawer, Divider, Box } from '@mui/material';
 
 import LoggedInView from '../auth/LoggedInView';
@@ -23,5 +24,13 @@ function LeftBar({ isLoggedIn, user }) {
         </Drawer>
     );
 }
+
+LeftBar.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
+    user: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+    }).isRequired,
+};
 
 export default LeftBar;

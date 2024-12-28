@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Typography, Container, CssBaseline } from '@mui/material';
 
 import AppIcon from '../../components/leftBar/AppIcon';

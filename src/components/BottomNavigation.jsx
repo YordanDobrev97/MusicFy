@@ -29,6 +29,7 @@ function BottomNavbar() {
                 {navItems.map((item, index) => {
                     return (
                         <BottomNavigationAction
+                            key={index}
                             label={item.label}
                             icon={item.icon}
                             component={Link}

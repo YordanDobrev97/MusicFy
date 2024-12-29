@@ -3,6 +3,8 @@ import { Box } from '@mui/material'
 import MusicCard from '../components/MusicCard';
 
 function HomePage() {
+  const user = useSelector((state) => state.user.user)
+
   return (
     <Box sx={{textAlign: 'center', paddingLeft: 2}}>
       <h1>Home Page</h1>

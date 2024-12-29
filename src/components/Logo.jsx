@@ -1,10 +1,10 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 
 import {
     IconButton,
     Typography
-} from '@mui/material'
-import { Menu } from '@mui/icons-material'
+} from '@mui/material';
+import { Menu } from '@mui/icons-material';
 
 import { MusicFyContext } from '../context/MusicFyContext'
 
@@ -23,4 +23,4 @@ const Logo = () => {
     )
 }
 
-export default Logo
+export default Logo;

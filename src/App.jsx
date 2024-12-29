@@ -1,67 +1,47 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import { ApolloProvider } from '@apollo/client'
-import {
-  AppBar,
-  Toolbar,
-  ThemeProvider,
-  Box,
-} from '@mui/material'
-import { createTheme } from '@mui/material/styles'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
-import { store } from './store'
-import {
-  MusicFyProvider
-} from './context/MusicFyContext'
-import { client } from './services/apolloClient'
-import LeftToolbar from './components/Toolbar'
-import Logo from './components/Logo'
+import LeftBar from './components/leftBar/LeftBar';
+import BottomNavbar from './components/BottomNavigation';
+import Home from './pages/Home';
+import Search from './pages/Search';
+import Library from './pages/Library';
+import Favorites from './pages/Favorites';
+import Register from './pages/Auth/Register';
 
-import './index.css'
-import HomePage from './pages/HomePage'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#1DB954',
+    },
+    background: {
+      default: '#121212',
+    },
+  },
+});
 
-const appTheme = createTheme({
-  components: {
-    MuiAppBar: {
-      styleOverrides: {
-        colorPrimary: {
-          backgroundColor: '#00A800',
-        }
-      }
-    }
-  }
-})
-
-const App = () => {
+function App() {
   return (
-    <Provider store={store}>
-      <ApolloProvider client={client}>
-        <ThemeProvider theme={appTheme}>
-          <MusicFyProvider>
-            <BrowserRouter>
-              <AppBar position='fixed'>
-                <Toolbar>
-                  <Logo />
-                </Toolbar>
-                <LeftToolbar />
-              </AppBar>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <LeftBar isLoggedIn={false} />
 
-              <Box component='main' className='main-content'>
-                <Routes>
-                  <Route path='/' element={<Navigate to='/home' />} />
-                  <Route path='/home' element={<HomePage />} />
-                  <Route path='/login' element={<Login />} />
-                  <Route path='/signup' element={<SignUp />} />
-                </Routes>
-              </Box>
-            </BrowserRouter>
-          </MusicFyProvider>
-        </ThemeProvider>
-      </ApolloProvider>
-    </Provider>
-  )
+        <Box sx={{textAlign: 'center'}}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </Box>
+
+        <BottomNavbar />
+      </Router>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
